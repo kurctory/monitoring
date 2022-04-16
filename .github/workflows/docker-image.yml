@@ -13,5 +13,4 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build Grafana
       run: docker-compose -f  zk-kafka-single-node-stack.yml up -d
-    - name: Grafana down
-      run: docker-compose -f  zk-kafka-single-node-stack.yml down
+
