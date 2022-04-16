@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-version: '3'
+version: '3.7'
 services:
   grafana:
     image: "grafana/grafana"
@@ -25,6 +25,8 @@ services:
      - ./grafana/provisioning:/etc/grafana/provisioning
      - ./grafana/dashboards:/var/lib/grafana/dashboards
     container_name: grafana
+    networks:
+      - localnet
     depends_on:
      - prometheus
 
@@ -36,6 +38,8 @@ services:
      - ./etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command: "--config.file=/etc/prometheus/prometheus.yml"
     container_name: prometheus
+    networks:
+      - localnet
 
   jmx-kafka101:
     image: "sscaling/jmx-prometheus-exporter"
@@ -46,6 +50,8 @@ services:
     volumes:
      - ./etc/jmx_exporter/config_kafka101.yml:/etc/jmx_exporter/config.yml
     container_name: jmx-kafka101
+    networks:
+      - localnet
     depends_on:
      - kafka101
 
@@ -59,6 +65,8 @@ services:
     ports:
      - 2181:2181
     container_name: zookeeper1
+    networks:
+      - localnet
 
   kafka101:
     image: confluentinc/cp-kafka:latest
@@ -68,6 +76,8 @@ services:
       - 9092:9092
       - 9992:9992
     container_name: kafka101
+    networks:
+      - localnet
     environment:
       KAFKA_BROKER_ID: 101
       KAFKA_JMX_PORT: 9992
@@ -82,3 +92,7 @@ services:
       CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper1:2181
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'false'
+
+networks:
+  localnet:
+    attachable: true
