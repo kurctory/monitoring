@@ -12,5 +12,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build Grafana
-      run: docker-compose -f  zk-kafka-single-node-stack.yml up -d
+    
+    - name: Run
+      env:
+        CID_FILE: ${{ inputs.name }}.cid
+      shell: bash
+      run: >
+        docker-compose -f  zk-kafka-single-node-stack.yml up -d
+        --name ${{ inputs.name }}
+        --network host
+        --cidfile $CID_FILE
+        ${{ inputs.options }}
+        ${{ inputs.image }}
+        ${{ inputs.command }}
+    
 
