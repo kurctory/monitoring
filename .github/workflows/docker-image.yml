@@ -14,16 +14,12 @@ jobs:
     - name: Build Grafana
     
     - name: Run
-      env:
-        CID_FILE: ${{ inputs.name }}.cid
+
       shell: bash
       run: >
         docker-compose -f  zk-kafka-single-node-stack.yml up -d
         --name ${{ inputs.name }}
         --network host
-        --cidfile $CID_FILE
-        ${{ inputs.options }}
-        ${{ inputs.image }}
-        ${{ inputs.command }}
+
     
 
