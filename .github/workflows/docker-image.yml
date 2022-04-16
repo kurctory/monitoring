@@ -18,7 +18,6 @@ jobs:
       shell: bash
       run: >
         docker-compose -f  zk-kafka-single-node-stack.yml up -d
-        --name ${{ inputs.name }}
         --network host
 
     
