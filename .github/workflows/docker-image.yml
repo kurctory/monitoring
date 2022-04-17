@@ -16,9 +16,8 @@ jobs:
     - name: Run
 
       shell: bash
-      run: >
+      run:
         docker-compose -f  zk-kafka-single-node-stack.yml up -d
-        --network host
 
     
 
