@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build Grafana
+#     - name: Build Grafana
     
 #     - name: Run
 #       shell: bash
@@ -20,7 +20,8 @@ jobs:
     
     - name: Say Hello
       run: echo 'Hello World!'
-        
+      
+#     - uses: browser-actions/setup-chromium@latest        
 #     - name: Run test on Chromium
 #       run: |
 #         $Env:CHROMIUM_BIN = "chrome"
