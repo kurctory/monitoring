@@ -13,11 +13,17 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build Grafana
     
-    - name: Run
-
-      shell: bash
-      run:
-        docker-compose -f  zk-kafka-single-node-stack.yml up -p 8080:80 -d
-
+#     - name: Run
+#       shell: bash
+#       run:
+#         docker-compose -f  zk-kafka-single-node-stack.yml up -d
+    
+    - name: Say Hello
+      run: echo 'Hello World!'
+        
+#     - name: Run test on Chromium
+#       run: |
+#         $Env:CHROMIUM_BIN = "chrome"
+#           yarn test --browsers=Chromium
     
 
