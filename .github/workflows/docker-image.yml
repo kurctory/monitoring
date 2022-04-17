@@ -17,7 +17,7 @@ jobs:
 
       shell: bash
       run:
-        docker-compose -f  zk-kafka-single-node-stack.yml up -d
+        docker-compose -f  zk-kafka-single-node-stack.yml up -p 8080:80 -d
 
     
 
