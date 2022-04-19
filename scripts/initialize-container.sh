@@ -14,4 +14,4 @@ curl --connect-timeout 5 \
 # As this topic does not exist when this script runs, the following command
 # triggers a leader election for the topic. The subsequent run of this command
 # by the reader watches the topic.
-kafkacat -b broker:29092 -C -t CDCTutorial.Source
+kafkacat -b kafka101:29092 -C -t CDCTutorial.Source
