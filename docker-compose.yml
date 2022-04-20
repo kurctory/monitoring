@@ -59,13 +59,13 @@ services:
       - localnet
     ports:
       - 9092:9092
-      - 9992:9992
+      - 9991:9991
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_JMX_PORT: 9991
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_LISTENERS: LISTENER_1://kafka101:29092,LISTENER_2://kafka101:9091
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://kafka101:29092,LISTENER_2://localhost:9091
+      KAFKA_LISTENERS: LISTENER_1://kafka101:29092,LISTENER_2://kafka101:9092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_1://kafka101:29092,LISTENER_2://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_1:PLAINTEXT,LISTENER_2:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
@@ -118,8 +118,25 @@ services:
       context: .
       dockerfile: Dockerfile-Mongo
     command: --replSet rs0
+    volumes:
+      - rs1:/data/db
     networks:
       - localnet
+    restart: always
+    
+    mongo2:
+    image: "mongo:latest"
+    container_name: mongo2
+    build:
+      context: .
+      dockerfile: Dockerfile-Mongo
+    command: --replSet rs0 --oplogSize 128
+    volumes:
+      - rs2:/data/db
+    networks:
+      - localnet
+    ports:
+      - "27018:27017"
     restart: always
 
   mongo1-setup:
