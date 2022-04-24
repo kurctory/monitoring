@@ -16,6 +16,9 @@ services:
 
   prometheus:
     image: "prom/prometheus"
+    build:
+      context: .
+      dockerfile: Dockerfile-PrometeusMongo
     ports:
      - "9090:9090"
     volumes:
@@ -23,6 +26,7 @@ services:
     command: "--config.file=/etc/prometheus/prometheus.yml"
     environment:
       - STATIC_SCRAPE_TARGETS=mongo@mongo-prometheus:9216
+      - CONSUL_SCRAPE_TARGETS=consul@consul:8500/metrics
     container_name: prometheus
 
   jmx-kafka101:
@@ -186,6 +190,11 @@ services:
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
       - ME_CONFIG_MONGODB_ADMINPASSWORD=admin123
+      
+  consul:
+    image: consul:1.4.2
+    ports:
+      - 8500:8500
 
 networks:
   localnet:

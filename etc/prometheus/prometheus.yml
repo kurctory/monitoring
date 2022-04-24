@@ -15,6 +15,8 @@ alerting:
 rule_files:
   # - "first_rules.yml"
   # - "second_rules.yml"
+  - /etc/prometheus/node.rules.yml
+  - /etc/prometheus/task.rules.yml
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -27,3 +29,26 @@ scrape_configs:
 
     static_configs:
     - targets: ['jmx-kafka101:5556','jmx-kafka102:5556', 'jmx-kafka103:5556']
+
+  - job_name: prometheus
+    honor_timestamps: true
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+    - targets:
+      - localhost:9090
+  - job_name: consul
+    honor_timestamps: true
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    consul_sd_configs:
+    - server: consul:8500
+      tag_separator: ','
+      scheme: http
+      allow_stale: true
+      refresh_interval: 30s  
+  
