@@ -190,3 +190,7 @@ services:
 networks:
   localnet:
     attachable: true
+    
+volumes:
+  rs1:
+  rs2:

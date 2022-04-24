@@ -13,7 +13,7 @@ RUN chmod +x initialize-container.sh
 RUN echo 'PS1="\[\e[32m\][\e[mMongoDB Kafka Connector Tutorial\e[32m]\e[m : "' >> ~/.bashrc
 
 # Add welcome text
-COPY greeting.sh status.sh /
+COPY greeting.sh scripts/status.sh /
 RUN chmod +x status.sh
 RUN cat greeting.sh >> ~/.bashrc
 
